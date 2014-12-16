@@ -26,15 +26,12 @@ Including in Gemfile
 Original README
 ===============
 
-The levenshtein module implements fast Damerau-Levenshtein edit distance
+The levenshtein module implements fast Levenshtein edit distance
 computation in O(n) memory and O(n^2) time, using a C wrapper. The module has a
 single function:
 
     require 'levenshtein'
     Levenshtein.distance("string1", "string2") == 1 # returns true
-
-This function can be used as a drop-in replacement for
-Text::Levenshtein.levenshtein, which is pure Ruby and rather slow. That's it!
 
 The code is made available under the following BSD license:
 
