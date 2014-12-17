@@ -17,6 +17,9 @@ module Levenshtein
     end
 
     # Unsafe version. Results in a segmentation fault if passed nils!
+    # IMPORTANT
+    # This provides a new function ffi_distance in ruby, which calls a
+    # function called levenshtein from the shared library
     attach_function :ffi_distance, :levenshtein, [:string, :string], :int
 
     private
@@ -27,3 +30,10 @@ module Levenshtein
     end
   end
 end
+
+
+puts "#{Levenshtein::distance('PANNA', 'PANNA')} should be 0"
+puts "#{Levenshtein::distance('A', 'B')} should be 1"
+puts "#{Levenshtein::distance('AA', 'AB')} should be 1"
+puts "#{Levenshtein::distance('BA', 'AA')} should be 1"
+puts "#{Levenshtein::distance('BANANA', 'PANNA')} should be 2"
