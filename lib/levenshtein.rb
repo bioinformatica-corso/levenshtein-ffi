@@ -1,4 +1,7 @@
 require 'ffi'
+require 'minitest/spec'
+require 'minitest/autorun'
+require 'shoulda'
 
 module Levenshtein
   class << self
@@ -31,9 +34,16 @@ module Levenshtein
   end
 end
 
+class LevTest < Minitest::Test
+  def assert_edit(s1, s2, dist)
+    assert_equal(Levenshtein::distance(s1, s2), dist)
+  end
 
-puts "#{Levenshtein::distance('PANNA', 'PANNA')} should be 0"
-puts "#{Levenshtein::distance('A', 'B')} should be 1"
-puts "#{Levenshtein::distance('AA', 'AB')} should be 1"
-puts "#{Levenshtein::distance('BA', 'AA')} should be 1"
-puts "#{Levenshtein::distance('BANANA', 'PANNA')} should be 2"
+  def test_all
+    assert_edit('PANNA', 'PANNA', 0)
+    assert_edit('A', 'A', 0)
+    assert_edit('NA', 'NN', 1)
+    assert_edit('AN', 'NN', 1)
+    assert_edit('BANANA', 'PANNA', 2)
+  end
+end
